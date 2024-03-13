@@ -1,0 +1,23 @@
+﻿@model List<ApplicazionePizzeria2._0.Models.Carrello>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1> Riepilogo carrello</h1>
+
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-5">
+			@foreach (var item in Model)
+			{
+				<img style="width:100px; height:100px; object-fit:cover;" src="@item.Prodotto.FotoProdotto"/>
+				<p>@item.Prodotto.NomeProdotto</p>
+				<p>@item.Quantita</p>
+			}
+			
+			</div>
+		</div>
+	</div>
