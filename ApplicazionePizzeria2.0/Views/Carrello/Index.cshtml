@@ -1,35 +1,53 @@
 ﻿@model List<ApplicazionePizzeria2._0.Models.Carrello>
 
+
 @{
 	ViewData["Title"] = "Index";
+
 }
 
 <h1> Riepilogo carrello</h1>
 
 
 
-	<div class="row">
-		<div class="d-flex">
-			<div class="col-4">
-				@foreach (var item in Model)
-				{
-					<div class="border border-1 p-2 position-relative m-3">
-						<div class="position-absolute top-0 end-0 m-4"> <a asp-action="RimuoviItemDalCarrello" asp-controller="Carrello" asp-route-id="@item.Prodotto.IdProdotto" style="text-decoration:none;">❌</a>  </div>
-						<img style="width:100px; height:100px; object-fit:cover;" src="@item.Prodotto.FotoProdotto" />
-						<p class="fw-bold fs-4">@item.Prodotto.NomeProdotto</p>
-						<p>Quantità selezionata: @item.Quantita</p>
-						<p> Prezzo: @item.Prodotto.PrezzoProdotto</p>
-						<p> TempoConsegna: @item.Prodotto.TempoConsegna minuti </p>
-						<p> Ingredienti: @item.Prodotto.Ingredienti</p>
+<div class="row">
+	<div class="d-flex">
+		<div class="col-6">
+			@foreach (var item in Model)
+			{
+				<div class="border border-1 p-2 position-relative m-3">
+					<div class="position-absolute top-0 end-0 m-4"> <a asp-action="RimuoviItemDalCarrello" asp-controller="Carrello" asp-route-id="@item.Prodotto.IdProdotto" style="text-decoration:none;">❌</a>  </div>
+					<img style="width:100px; height:100px; object-fit:cover;" src="@item.Prodotto.FotoProdotto" />
+					<p class="fw-bold fs-4">@item.Prodotto.NomeProdotto</p>
+					<p>Quantità selezionata: @item.Quantita</p>
+					<p> Prezzo: @item.Prodotto.PrezzoProdotto</p>
+					<p> TempoConsegna: @item.Prodotto.TempoConsegna minuti </p>
+					<p> Ingredienti: @item.Prodotto.Ingredienti</p>
 
-					</div>
+				</div>
 
 
-				}
-				<a asp-controller="Ordine" asp-action="Create" class="btn btn-outline-dark"> Procedi all'ordine </a>
-			</div>
+			}
+
+
 		</div>
 	</div>
+	<div class="col-12">
+		@{
+			if (Model.Count == 0)
+			{
+				<div class="display-2"> Il carrello è vuoto Zio, e spendili du sordi... </div>
+
+			}
+			else
+			{
+				<a asp-controller="Ordine" asp-action="Create" class="btn btn-outline-dark"> Procedi all'ordine </a>
+
+			}
+		}
+
+	</div>
+</div>
 
 
 
