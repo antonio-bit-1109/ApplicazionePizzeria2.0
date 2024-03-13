@@ -6,12 +6,12 @@
 
 <h2>Riepilogo Ordini Effettuati</h2>
 
-<div class="container">
+
 	<div class="row">
 		<div class="col-11">
 			@foreach (var item in Model)
 			{
-				<div class="border border-1 p-3 d-flex m-2">
+				<div class="border border-1 p-3 d-flex m-2 flex-wrap">
 
 					<div class="col-6">
 						<div class=" d-flex flex-column">
@@ -22,7 +22,7 @@
 
 					@foreach (var frescoBuffo in item.ListaDettagliOrdine)
 					{
-						<div class="col-6">
+						<div class="col-6 m-3">
 
 							@{
 								<div class="d-flex flex-column">
@@ -38,4 +38,4 @@
 			}
 		</div>
 	</div>
-</div>
+

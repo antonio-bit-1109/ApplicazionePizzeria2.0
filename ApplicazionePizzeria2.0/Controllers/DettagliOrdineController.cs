@@ -78,7 +78,7 @@ namespace ApplicazionePizzeria2._0.Controllers
         }
 
         // GET: DettagliOrdine/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, float? costoTotale)
         {
             if (id == null)
             {
@@ -92,6 +92,7 @@ namespace ApplicazionePizzeria2._0.Controllers
             }
             ViewData["IdOrdine"] = new SelectList(_context.Ordini, "IdOrdine", "indirizzoSpedizione", dettagliOrdine.IdOrdine);
             ViewData["IdProdotto"] = new SelectList(_context.Prodotti, "IdProdotto", "FotoProdotto", dettagliOrdine.IdProdotto);
+            ViewData["costoTotale"] = costoTotale;
             return View(dettagliOrdine);
         }
 
@@ -100,7 +101,7 @@ namespace ApplicazionePizzeria2._0.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdDettagliOrdine,IdOrdine,IdProdotto,Quantita,Prezzo,OrdineEvaso")] DettagliOrdine dettagliOrdine)
+        public async Task<IActionResult> Edit(int id, [Bind("IdDettagliOrdine,IdOrdine,IdProdotto,Quantita,Prezzo,OrdineEvaso,CostoTotale")] DettagliOrdine dettagliOrdine)
         {
             if (id != dettagliOrdine.IdDettagliOrdine)
             {
