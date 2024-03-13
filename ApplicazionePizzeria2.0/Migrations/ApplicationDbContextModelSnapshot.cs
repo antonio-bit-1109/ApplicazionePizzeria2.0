@@ -54,7 +54,7 @@ namespace ApplicazionePizzeria2._0.Migrations
 
                     b.HasIndex("IdProdotto");
 
-                    b.ToTable("DettagliOrdini");
+                    b.ToTable("DettagliOrdini", (string)null);
                 });
 
             modelBuilder.Entity("ApplicazionePizzeria2._0.Models.Ordine", b =>
@@ -79,7 +79,7 @@ namespace ApplicazionePizzeria2._0.Migrations
 
                     b.HasIndex("IdUtente");
 
-                    b.ToTable("Ordini");
+                    b.ToTable("Ordini", (string)null);
                 });
 
             modelBuilder.Entity("ApplicazionePizzeria2._0.Models.Prodotto", b =>
@@ -110,7 +110,7 @@ namespace ApplicazionePizzeria2._0.Migrations
 
                     b.HasKey("IdProdotto");
 
-                    b.ToTable("Prodotti");
+                    b.ToTable("Prodotti", (string)null);
                 });
 
             modelBuilder.Entity("ApplicazionePizzeria2._0.Models.Utente", b =>
@@ -135,7 +135,7 @@ namespace ApplicazionePizzeria2._0.Migrations
 
                     b.HasKey("IdUtente");
 
-                    b.ToTable("Utenti");
+                    b.ToTable("Utenti", (string)null);
                 });
 
             modelBuilder.Entity("ApplicazionePizzeria2._0.Models.DettagliOrdine", b =>

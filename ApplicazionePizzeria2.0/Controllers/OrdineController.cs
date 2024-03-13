@@ -3,6 +3,7 @@ using ApplicazionePizzeria2._0.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Security.Claims;
 
 namespace ApplicazionePizzeria2._0.Controllers
@@ -46,13 +47,14 @@ namespace ApplicazionePizzeria2._0.Controllers
         // GET: Ordine/Create
         public IActionResult Create()
         {
-            ViewData["IdUtente"] = new SelectList(_context.Utenti, "IdUtente", "Nome");
+            //ViewData["IdUtente"] = new SelectList(_context.Utenti, "IdUtente", "Nome");
+            var idUtenteLoggato = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["IdUTENTE"] = Convert.ToInt32(idUtenteLoggato);
             return View();
         }
 
         // POST: Ordine/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("indirizzoSpedizione,IdUtente,NoteAggiuntive")] Ordine ordine)
@@ -64,8 +66,58 @@ namespace ApplicazionePizzeria2._0.Controllers
             {
                 _context.Add(ordine);
                 await _context.SaveChangesAsync();
+
+
+                //reindirizzo alla paigna iniziale con il messaggio di successo
+                // devo popolare manualmente la tabella dettagliOrdine con i prodotti presenti nel carrello della session
+
+                //recupero l'id dell'ordine appena creato da inserire nella tabella dettagliOrdine
                 var OrdineAppenaCreato = ordine.IdOrdine;
-                return RedirectToAction("Create", "DettagliOrdine", new { id = OrdineAppenaCreato });
+                //recupero la session
+                var carrelloSession = HttpContext.Session.GetString("carrello");
+
+                if (carrelloSession != null)
+                {
+                    // deserializzo il carrello
+                    List<Carrello> cart = JsonConvert.DeserializeObject<List<Carrello>>(carrelloSession);
+
+                    //Estraggo i dati dal carrello per ogni prodotto presente nel carrello estraggo i valori di prodotto e quantita
+                    // e li assegno all'oggetto dettagliOrdine
+                    foreach (var item in cart)
+                    {
+                        int idprodotto = item.Prodotto.IdProdotto;
+                        string nomeprodotto = item.Prodotto.NomeProdotto;
+                        string fotoprodotto = item.Prodotto.FotoProdotto;
+                        double prezzoprodotto = item.Prodotto.PrezzoProdotto;
+                        int tempoconsegna = item.Prodotto.TempoConsegna;
+                        string ingredienti = item.Prodotto.Ingredienti;
+
+                        int quantita = item.Quantita;
+
+                        //creo un nuovo oggetto dettagliOrdine
+                        DettagliOrdine dettagliOrdine = new DettagliOrdine
+                        {
+                            IdOrdine = OrdineAppenaCreato,
+                            IdProdotto = idprodotto,
+                            Quantita = quantita,
+                            Prezzo = prezzoprodotto,
+                            CostoTotale = prezzoprodotto * quantita
+                        };
+
+                        //aggiungo l'oggetto dettagliOrdine al db
+                        _context.Add(dettagliOrdine);
+                        await _context.SaveChangesAsync();
+
+                        // svuoto il carrello
+                        HttpContext.Session.Remove("carrello");
+                    }
+
+
+                }
+
+
+                TempData["Message"] = "Ordine creato con successo!";
+                return RedirectToAction("Index", "Login");
 
             }
             ViewData["IdUtente"] = new SelectList(_context.Utenti, "IdUtente", "Nome", ordine.IdUtente);

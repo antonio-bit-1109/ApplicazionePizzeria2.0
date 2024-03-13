@@ -17,7 +17,6 @@ namespace ApplicazionePizzeria2._0.Models
 
 		public string? NoteAggiuntive { get; set; } = string.Empty;
 
-
 		public virtual Utente Utente { get; set; }
 		public virtual ICollection<DettagliOrdine> DettagliOrdini { get; set; }
 	}
