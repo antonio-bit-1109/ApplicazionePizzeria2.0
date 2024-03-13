@@ -1,0 +1,37 @@
+﻿@model List<RiepilogoOrdine>;
+
+@{
+	ViewBag.Title = "RiepilogoOrdine";
+}
+
+<h2>Riepilogo Ordine</h2>
+
+<div class="container">
+	<div class="row">
+		<div class="col-6">		
+				@foreach (var item in Model)
+				{
+					<div class="border border-1 p-3 d-flex m-2">
+
+						<div class="my-4">
+							<h4>Note Aggiuntive: @(item.Ordine.NoteAggiuntive != null ? item.Ordine.NoteAggiuntive : "non Specificate")</h4>
+							<h4>@item.Ordine.indirizzoSpedizione</h4>
+						</div>
+
+						@foreach (var frescoBuffo in item.ListaDettagliOrdine)
+						{
+							<div class="my-4">
+
+								@{
+									<h4>@(frescoBuffo.Prezzo != 0 ? $"Prezzo Unitario: {frescoBuffo.Prezzo}" : "non disponibile")</h4>
+									<h2>@(frescoBuffo.Prodotto != null ? $" ProdottoSelezionato: {frescoBuffo.Prodotto.NomeProdotto}" : "non disponibile")</h2>
+									<p>@(frescoBuffo.Quantita != 0 ? $" Quantità acquistata: {frescoBuffo.Quantita} unità" : "non disponibile")</p>
+									<p>@(frescoBuffo.CostoTotale != null ? $" Prezzo Totale: {frescoBuffo.CostoTotale} euro" : "non disponibile")</p>
+								}
+							</div>
+						}
+					</div>
+				}		
+		</div>
+	</div>
+</div>

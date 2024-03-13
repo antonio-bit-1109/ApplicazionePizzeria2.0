@@ -1,0 +1,103 @@
+﻿@model ApplicazionePizzeria2._0.Models.DettagliOrdine
+
+@{
+	ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>DettagliOrdine</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Create">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="IdOrdine" class="control-label"></label>
+				@*  <select asp-for="IdOrdine" class ="form-control" asp-items="ViewBag.IdOrdine"></select> *@
+				<input asp-for="IdOrdine" class="form-control" value="@ViewBag.IdOrdine" />
+
+			</div>
+			<div class="form-group">
+				<label asp-for="IdProdotto" class="control-label"></label>
+				<select id="selectItem" asp-for="IdProdotto" class="form-control" asp-items="ViewBag.IdProdotto"></select>
+			</div>
+			<div class="form-group">
+				<label asp-for="Quantita" class="control-label"></label>
+				<input asp-for="Quantita" class="form-control" />
+				<span asp-validation-for="Quantita" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Prezzo" class="control-label"></label>
+				<input readonly id="valuedaValorizzare" asp-for="Prezzo" class="form-control" />
+				<span asp-validation-for="Prezzo" class="text-danger"></span>
+			</div>
+			@* <div class="form-group form-check">
+				<label class="form-check-label">
+					<input class="form-check-input" asp-for="OrdineEvaso" /> @Html.DisplayNameFor(model => model.OrdineEvaso)
+				</label>
+			</div> *@
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+
+	<script>
+
+		const inputDaValorizzare = document.getElementById("valuedaValorizzare");
+
+		const myfetch = (value) => {
+
+			const options = {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					/*  Authorization: `Bearer ${TokenCommenti} `, */
+				},
+			};
+
+			fetch(`/DettagliOrdine/FetchCostoprodottoSelezionato/?idProdotto=${value}`, options)
+				.then((response) => {
+					if (!response.ok) {
+						if (response.status > 400 && response.status < 500) {
+							if (response.status === 429) {
+								throw new Error("429 INFAME PER TE TANTE COSE BRUTTE");
+							} else {
+								throw new Error("STAI CAPPELLANDO , RIGUARDA QUELLO CHE HAI SCRITTO");
+							}
+						}
+						if (response.status > 500 && response.status < 600) {
+							throw new Error("SERVER SPOMPATO, NON FUNZIA??");
+						}
+					}
+					return response.json();
+				})
+				.then(data => {
+					console.log(data);
+					inputDaValorizzare.value = data;
+				})
+		}
+
+
+		document.addEventListener("DOMContentLoaded", () => {
+			const selectItem = document.getElementById("selectItem");
+			selectItem.addEventListener("change", () => {
+				const valoreDellaSelect = selectItem.value;
+				myfetch(valoreDellaSelect);
+			});
+		});
+
+	</script>
+}

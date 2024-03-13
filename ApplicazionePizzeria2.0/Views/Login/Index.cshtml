@@ -1,0 +1,78 @@
+﻿
+<div class="container">
+	<div class="row justify-content-center align-items-center gap-4">
+		@if (User.IsInRole("admin"))
+		{
+
+			<div class="col-5">
+				<div class="card">
+
+					<div class="card-body">
+						<h5 class="fs-2"> Registra Nuovo Prodotto</h5>
+						<p class="card-text">CRUD dei prodotti </p>
+						<a asp-controller="Prodotto" asp-action="Index" class="btn btn-primary"> Aggiungi Nuovo Prodotto  </a>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="col-5">
+				<div class="card">
+					@* 				<img src="~/imgs/prenotazione.jpg" />
+				*@				<div class="card-body">
+						<h5 class="fs-2">Elenco Ordini</h5>
+						<p class="card-text">Tutti gli ordini Effettuati.</p>
+						@* <a asp-controller="Cliente" asp-action="Index" class="btn btn-primary"> Vai all' elenco clienti</a> *@
+						<a asp-controller="Ordine" asp-action="Index" class="btn btn-primary"> Vai agli Ordini </a>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-5">
+				<div class="card">
+					@* 				<img src="~/imgs/servizio.jpg" />
+				*@				<div class="card-body">
+						<h5 class="fs-2">Elenco Dettagli Ordine </h5>
+						<p class="card-text">Tutti i dettagli degli ordini</p>
+						<a asp-controller="DettagliOrdine" asp-action="Index" class="btn btn-primary"> Elenco Dettagli Ordini</a>
+
+					</div>
+				</div>
+			</div>
+
+
+		}
+		else
+		{
+			<div class="col-5">
+				<div class="card">
+
+					<div class="card-body">
+						<h5 class="fs-2"> ordina Cibo </h5>
+						<p class="card-text">Ordina una pizza </p>
+						<a asp-controller="Prodotto" asp-action="Index" class="btn btn-primary"> vedi prodotti  </a>
+					</div>
+				</div>
+			</div>
+
+		}
+
+
+
+
+
+		@* <div class="col-5">
+		<div class="card">
+		<img src="~/imgs/camera.jpg" />
+		<div class="card-body">
+		<h5 class="fs-2">Elenco delle Camere</h5>
+		<p class="card-text">Camere presenti nell'albergo</p>
+		<a asp-controller="Camera" asp-action="Index" class="btn btn-primary"> Elenco Camere</a>
+		*
+		</div>
+		</div>
+		</div> *@
+	</div>
+</div>
