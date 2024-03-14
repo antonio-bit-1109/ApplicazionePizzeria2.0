@@ -72,37 +72,5 @@
 		</tbody>
 	</table>
 
-	<div class="col-12">
-		<button id="btnOridiniEvasi">Totale Ordini Evasi</button>
-		<button>Totale Incassato Oggi </button>
-	</div>
-
-	<div class="col-12">
-		<p id="outputElement"></p>
-	</div>
 </div>
 
-
-@section Scripts {
-	<script>
-
-		const BtnOrdiniTot = document.getElementById("btnOridiniEvasi");
-
-		const MyFetch = () => {
-			fetch("/Ordine/FetchTotOrdniEvasi")
-				.then(response => response.json())
-				.then(data => {
-					pOutput = document.getElementById("outputElement");
-					pOutput.innerHTML = `Totale ordini evasi: ${data}`;
-				})
-		}
-
-		document.addEventListener("DOMContentLoaded" , () => {
-
-			BtnOrdiniTot.addEventListener("click" , () => {
-				MyFetch();
-			})
-			
-		})
-	</script>
-}

@@ -22,7 +22,7 @@
 	<header>
 		<nav style="background-color:saddlebrown" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
 			<div class="container-fluid">
-				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ApplicazionePizzeria2._0</a>
+				<a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">La Pizzeria Quella Bella</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -33,10 +33,10 @@
 							if (User.Identity.IsAuthenticated)
 							{
 								<li class="nav-item">
-									<a class="nav-link text-dark" asp-controller="Login" asp-action="Index">Home</a>
+									<a class="nav-link text-light" asp-controller="Login" asp-action="Index">Home</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link text-dark" asp-controller="Login" asp-action="LogOut"> Log-Out</a>
+									<a class="nav-link text-light" asp-controller="Login" asp-action="LogOut"> Log-Out</a>
 								</li>
 								<li class="nav-item d-flex align-items-center">
 									<span class="@(!User.IsInRole("admin") ? "text-success fw-bold" : "text-danger fw-bold")">
@@ -48,11 +48,11 @@
 								{
 									<li class="nav-item ms-auto">
 
-										<a asp-controller="Ordine" asp-action="RiepilogoOrdine" class="nav-link text-dark"> Riepilogo Dei Tuoi ordini  </a>
+										<a asp-controller="Ordine" asp-action="RiepilogoOrdine" class="nav-link text-light"> Riepilogo Dei Tuoi ordini  </a>
 									</li>
 									<li class="nav-item">
 
-										<a asp-controller="Carrello" asp-action="Index" class="nav-link text-dark"> Carrello  </a>
+										<a asp-controller="Carrello" asp-action="Index" class="nav-link text-light"> Carrello  </a>
 									</li>
 								}
 
@@ -60,7 +60,12 @@
 							else
 							{
 								<li class="nav-item">
-									<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+									<a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+								</li>
+
+
+								<li class="nav-item ms-auto">
+									<a class="nav-link text-light" asp-action="Registrazione" asp-controller="Login"> Registrati </a>
 								</li>
 							}
 						}
@@ -73,16 +78,17 @@
 	<div class="container">
 		<main role="main" class="pb-3 vh-100">
 			<partial name="_notifications" />
-
 			@RenderBody()
 		</main>
+		
 	</div>
 
 	@* <footer class="border-top footer text-muted">
 		<div class="container">
 			&copy; 2024 - ApplicazionePizzeria2._0 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 		</div>
-	</footer> *@
+	</footer>  *@
+	 
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>

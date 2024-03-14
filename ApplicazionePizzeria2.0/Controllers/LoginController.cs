@@ -80,5 +80,39 @@ namespace ApplicazionePizzeria2._0.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 
+
+		public IActionResult Registrazione()
+		{
+			bool MiStoRegistrando;
+
+
+			MiStoRegistrando = true;
+			TempData["MiStoRegistrando"] = MiStoRegistrando;
+			return RedirectToAction("Index", "Home");
+		}
+
+		[HttpPost]
+		public IActionResult Registrazione(Utente utente)
+		{
+
+			utente.Ruolo = "utente";
+
+			ModelState.Remove("Ordini");
+
+			if (ModelState.IsValid)
+			{
+				_db.Utenti.Add(utente);
+				_db.SaveChanges();
+				TempData["Message"] = "Utente creato con successo.";
+				return RedirectToAction("Index");
+			}
+
+			// controlla l'oggetto utente che ricevi e se non esiste lo aggiunge al db
+			// altrimenti ritorna un errore e invita l'utente a riprovare
+
+
+			TempData["Message"] = "Dati inseriti Errati. RIprova";
+			return RedirectToAction("Index");
+		}
 	}
 }
