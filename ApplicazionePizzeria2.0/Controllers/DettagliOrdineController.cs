@@ -1,11 +1,13 @@
 ﻿using ApplicazionePizzeria2._0.data;
 using ApplicazionePizzeria2._0.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApplicazionePizzeria2._0.Controllers
 {
+	[Authorize(Roles = "admin")]
 	public class DettagliOrdineController : Controller
 	{
 		private readonly ApplicationDbContext _context;

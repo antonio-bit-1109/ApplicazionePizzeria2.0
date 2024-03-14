@@ -1,5 +1,6 @@
 ﻿using ApplicazionePizzeria2._0.data;
 using ApplicazionePizzeria2._0.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,7 @@ namespace ApplicazionePizzeria2._0.Controllers
 		}
 
 		// GET: Ordine/Create
+		[Authorize]
 		public IActionResult Create()
 		{
 			//ViewData["IdUtente"] = new SelectList(_context.Utenti, "IdUtente", "Nome");
@@ -57,7 +59,8 @@ namespace ApplicazionePizzeria2._0.Controllers
 		// POST: Ordine/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("indirizzoSpedizione,IdUtente,NoteAggiuntive")] Ordine ordine)
+		[Authorize]
+		public async Task<IActionResult> Create([Bind("indirizzoSpedizione,IdUtente,NoteAggiuntive, DataDellaConsegna")] Ordine ordine)
 		{
 			ModelState.Remove("Utente");
 			ModelState.Remove("DettagliOrdini");
@@ -128,6 +131,7 @@ namespace ApplicazionePizzeria2._0.Controllers
 		}
 
 		// GET: Ordine/Edit/5
+		[Authorize(Roles = "admin")]
 		public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null)
@@ -149,6 +153,7 @@ namespace ApplicazionePizzeria2._0.Controllers
 		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "admin")]
 		public async Task<IActionResult> Edit(int id, [Bind("IdOrdine,indirizzoSpedizione,IdUtente,NoteAggiuntive")] Ordine ordine)
 		{
 			if (id != ordine.IdOrdine)
@@ -184,6 +189,7 @@ namespace ApplicazionePizzeria2._0.Controllers
 		}
 
 		// GET: Ordine/Delete/5
+		[Authorize(Roles = "admin")]
 		public async Task<IActionResult> Delete(int? id)
 		{
 			if (id == null)
@@ -205,6 +211,7 @@ namespace ApplicazionePizzeria2._0.Controllers
 		// POST: Ordine/Delete/5
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "admin")]
 		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
 			var ordine = await _context.Ordini.FindAsync(id);
@@ -223,7 +230,7 @@ namespace ApplicazionePizzeria2._0.Controllers
 		}
 
 
-
+		[Authorize]
 		public IActionResult RiepilogoOrdine()
 		{
 			if (User.Identity.IsAuthenticated)
@@ -265,12 +272,17 @@ namespace ApplicazionePizzeria2._0.Controllers
 		}
 
 
-		public IActionResult FetchTotOrdniEvasi()
-		{
+		//public IActionResult FetchTotOrdniEvasi()
+		//{
+
+		//	return Json(true);
+		//}
+
+		//public IActionResult TotIncassoOggi()
+		//{
 
 
-
-			return Json(true);
-		}
+		//	return Json(true);
+		//}
 	}
 }

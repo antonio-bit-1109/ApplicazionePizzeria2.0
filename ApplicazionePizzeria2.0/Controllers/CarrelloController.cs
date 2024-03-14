@@ -1,10 +1,12 @@
 ﻿using ApplicazionePizzeria2._0.data;
 using ApplicazionePizzeria2._0.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace ApplicazionePizzeria2._0.Controllers
 {
+	[Authorize]
 	public class CarrelloController : Controller
 	{
 

@@ -22,6 +22,9 @@
                 @Html.DisplayNameFor(model => model.NoteAggiuntive)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.DataDellaConsegna)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Utente)
             </th>
             <th></th>
@@ -39,6 +42,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NoteAggiuntive)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataDellaConsegna)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Utente.Nome)
             </td>
