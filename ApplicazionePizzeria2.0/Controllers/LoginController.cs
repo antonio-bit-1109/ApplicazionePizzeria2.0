@@ -92,27 +92,37 @@ namespace ApplicazionePizzeria2._0.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Registrazione(Utente utente)
+		[HttpPost]
+		public IActionResult Registrazione([Bind("Nome,Password")] Utente utente)
 		{
-
 			utente.Ruolo = "utente";
-
 			ModelState.Remove("Ordini");
 
-			if (ModelState.IsValid)
+			try
 			{
+				var listaNomiGiaPresentiNelDB = _db.Utenti.ToList();
+
+				// Verifica se il nome utente esiste già
+				bool nomeEsiste = listaNomiGiaPresentiNelDB.Any(u => u.Nome == utente.Nome);
+
+				if (nomeEsiste)
+				{
+					TempData["Errore"] = "Nome utente gia in uso. Scegline uno diverso";
+					return RedirectToAction("Index", "Home");
+				}
+
+				// Se il nome utente non esiste, aggiungi l'utente
 				_db.Utenti.Add(utente);
 				_db.SaveChanges();
 				TempData["Message"] = "Utente creato con successo.";
-				return RedirectToAction("Index");
+				return RedirectToAction("Index", "Home");
 			}
-
-			// controlla l'oggetto utente che ricevi e se non esiste lo aggiunge al db
-			// altrimenti ritorna un errore e invita l'utente a riprovare
-
-
-			TempData["Message"] = "Dati inseriti Errati. RIprova";
-			return RedirectToAction("Index");
+			catch
+			{
+				TempData["Errore"] = "Si è verificato un errore. Riprova";
+				return RedirectToAction("Index", "Home");
+			}
 		}
+
 	}
 }
