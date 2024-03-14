@@ -39,7 +39,7 @@
 									<a class="nav-link text-light" asp-controller="Login" asp-action="LogOut"> Log-Out</a>
 								</li>
 								<li class="nav-item d-flex align-items-center">
-									<span class="@(!User.IsInRole("admin") ? "text-success fw-bold" : "text-danger fw-bold")">
+									<span class="@(!User.IsInRole("admin") ? "text-info fw-bold" : "text-danger fw-bold")">
 										Benvenuto @userName @(!User.IsInRole("admin") ? "(utente)" : "(ADMIN)")
 									</span>
 								</li>
