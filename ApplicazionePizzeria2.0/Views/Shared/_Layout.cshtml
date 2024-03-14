@@ -20,9 +20,10 @@
 </head>
 <body>
 	<header>
-		<nav style="background-color:saddlebrown" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+		<nav style="background-color:saddlebrown" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
 			<div class="container-fluid">
-				<a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">La Pizzeria Quella Bella</a>
+				<img class="imgPosition2 me-3" src="../imgs/pizzaa.png" />
+				<a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Ahò Pizza</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -75,19 +76,24 @@
 			</div>
 		</nav>
 	</header>
-	<div class="container">
-		<main role="main" class="pb-3 vh-100">
-			<partial name="_notifications" />
+	<div class="vh-100 imgHome">
+		<div class="container-fluid>
+			<main role="main">
+				<partial name="_notifications" />
 			@RenderBody()
-		</main>
-		
+			</main>
+		</div>
 	</div>
 
-	@* <footer class="border-top footer text-muted">
+
+ 	<footer style="background-color:saddlebrown;" class="position-absolute bottom-0 w-100 p-4">
 		<div class="container">
-			&copy; 2024 - ApplicazionePizzeria2._0 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+			<div class="text-black">
+				&copy; 2024 - ApplicazionePizzeria2._0 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+			</div>
 		</div>
-	</footer>  *@
+	</footer>   
 	 
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
