@@ -2,6 +2,7 @@
 
 @{
 	ViewBag.Title = "RiepilogoOrdine";
+	
 }
 
 
@@ -23,20 +24,20 @@
 
 			@foreach (var item in Model)
 			{
-				<div class="mycustomColor p-2 border border-white border-3 my-2">
+				<div class="mycustomColor p-2 border border-white border-3 my-2 position-relative">
 
 					<div class="row">
 						<div class="col-10">
 							<div class="d-flex justify-content-around gap-2">
-								<h6>Ordine N°: @item.Ordine.IdOrdine</h6>
+								<h6 class="idordine">Ordine N°: @item.Ordine.IdOrdine</h6>
 								<h6>Data dell'ordine: @item.Ordine.DataDellaConsegna</h6>
 								<h6>Note: @item.Ordine.NoteAggiuntive</h6>
 								<h6>Indirizzo Spedizione: @item.Ordine.indirizzoSpedizione</h6>
 							</div>
 						</div>
 					</div>
-					
-					
+
+
 
 					@foreach (var frescoBuffo in item.ListaDettagliOrdine)
 					{
@@ -52,20 +53,49 @@
 
 									</div>
 									<div class="col-4">
-										<img class="card-img" src="@frescoBuffo.Prodotto.FotoProdotto"/>
+										<img class="card-img" src="@frescoBuffo.Prodotto.FotoProdotto" />
 									</div>
 								</div>
 							</div>
+
+
 						</div>
-						
+
+
 					}
-					
+					<div class="position-absolute bottom-0 end-0 m-5 fs-3">
+						<p class="m-0"> Prezzo Totale: </p>
+						<p class="pPrezzo_totalissimo"></p>
+					</div>
 				</div>
+
+
 			}
 
 
 		</div>
+
 	</div>
 </div>
+
+
+@section Scripts {
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const ordini = document.querySelectorAll(".mycustomColor");
+
+			ordini.forEach((ordine) => {
+				const idOrdineElement = ordine.querySelector(".idordine");
+				const idOrdine = idOrdineElement.textContent.replace("Ordine N°: ", "");
+				fetch(`/Ordine/TotCostoOrdine/?idOrdine=${idOrdine}`)
+					.then(response => response.json())
+					.then(data => {
+						const prezzoTotalissimo = ordine.querySelector(".pPrezzo_totalissimo");
+						prezzoTotalissimo.textContent = `${data} €`;
+					});
+			});
+		});
+	</script>
+}
 
 
