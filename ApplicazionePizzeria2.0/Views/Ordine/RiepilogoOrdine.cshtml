@@ -9,8 +9,8 @@
 <div class="container">
 	<div class="row">
 		<div class="col-12">
-			<div>
-				<h2 class="my-2">Riepilogo dei tuoi Ordini</h2>
+			<div class="d-flex justify-content-center">
+				<h2 class="my-2 text-light">Riepilogo dei tuoi Ordini</h2>
 			</div>
 		</div>
 	</div>
@@ -18,39 +18,52 @@
 
 
 <div class="container">
-	<div class="row">
-	
-		<div class="my-3">
-			<div class="col-11">
-				@foreach (var item in Model)
-				{
-					<div class="myCustomBorder p-3 d-flex m-2 flex-wrap bg-light">
+	<div class="row justify-content-center">
+		<div class="col-12">
 
-						<div class="col-6">
-							<div class=" d-flex flex-column">
-								<h4>Note Aggiuntive: @(item.Ordine.NoteAggiuntive != null ? item.Ordine.NoteAggiuntive : "non Specificate")</h4>
-								<h4> Indirizzo Spedizione: @item.Ordine.indirizzoSpedizione</h4>
-								<h4> Data della consegna: @item.Ordine.DataDellaConsegna</h4>
+			@foreach (var item in Model)
+			{
+				<div class="mycustomColor p-2 border border-white border-3 my-2">
+
+					<div class="row">
+						<div class="col-10">
+							<div class="d-flex justify-content-around gap-2">
+								<h6>Ordine N°: @item.Ordine.IdOrdine</h6>
+								<h6>Data dell'ordine: @item.Ordine.DataDellaConsegna</h6>
+								<h6>Note: @item.Ordine.NoteAggiuntive</h6>
+								<h6>Indirizzo Spedizione: @item.Ordine.indirizzoSpedizione</h6>
 							</div>
 						</div>
-
-						@foreach (var frescoBuffo in item.ListaDettagliOrdine)
-						{
-							<div class="col-6 m-3">
-
-								@{
-									<div class="d-flex flex-column">
-										<h4>@(frescoBuffo.Prezzo != 0 ? $"Prezzo Unitario: {frescoBuffo.Prezzo}" : "non disponibile")</h4>
-										<h2>@(frescoBuffo.Prodotto != null ? $" ProdottoSelezionato: {frescoBuffo.Prodotto.NomeProdotto}" : "non disponibile")</h2>
-										<p>@(frescoBuffo.Quantita != 0 ? $" Quantità acquistata: {frescoBuffo.Quantita} unità" : "non disponibile")</p>
-										<p>@(frescoBuffo.CostoTotale != null ? $" Prezzo Totale: {frescoBuffo.CostoTotale} euro" : "non disponibile")</p>
-									</div>
-								}
-							</div>
-						}
 					</div>
-				}
-			</div>
+					
+					
+
+					@foreach (var frescoBuffo in item.ListaDettagliOrdine)
+					{
+
+						<div class="row">
+							<div class="col-10">
+								<div class="d-flex justify-content-start align-items-center gap-2 p-2">
+									<div class="col-6">
+										<h5>@(frescoBuffo.Prodotto != null ? $" ProdottoSelezionato: {frescoBuffo.Prodotto.NomeProdotto}" : "non disponibile")</h5>
+										<h5>@(frescoBuffo.Prezzo != 0 ? $"Prezzo Unitario: {frescoBuffo.Prezzo} Euro" : "non disponibile")</h5>
+										<p>@(frescoBuffo.Quantita != 0 ? $" Quantità acquistata: {frescoBuffo.Quantita}" : "non disponibile")</p>
+										<p class="CostoRelativo">@(frescoBuffo.CostoTotale != null ? $" Prezzo relativo: {frescoBuffo.CostoTotale} euro" : "non disponibile")</p>
+
+									</div>
+									<div class="col-4">
+										<img class="card-img" src="@frescoBuffo.Prodotto.FotoProdotto"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					}
+					
+				</div>
+			}
+
+
 		</div>
 	</div>
 </div>

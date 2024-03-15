@@ -10,7 +10,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-12">
-			<h1> Riepilogo carrello</h1>
+			<h1 class="text-light"> Riepilogo carrello</h1>
 		</div>
 	</div>
 </div>
@@ -24,15 +24,21 @@
 			<div class="col-6">
 				@foreach (var item in Model)
 				{
-					<div class="myCustomBorder p-2 position-relative m-3 bg-light">
-						<div class="position-absolute top-0 end-0 m-4"> <a asp-action="RimuoviItemDalCarrello" asp-controller="Carrello" asp-route-id="@item.Prodotto.IdProdotto" style="text-decoration:none;">❌</a>  </div>
-						<img style="width:100px; height:100px; object-fit:cover;" src="@item.Prodotto.FotoProdotto" />
-						<p class="fw-bold fs-4">@item.Prodotto.NomeProdotto</p>
-						<p>Quantità selezionata: @item.Quantita</p>
-						<p> Prezzo: @item.Prodotto.PrezzoProdotto</p>
-						<p> TempoConsegna: @item.Prodotto.TempoConsegna minuti </p>
-						<p> Ingredienti: @item.Prodotto.Ingredienti</p>
+					<div class="mycustomColor p-2 border border-white border-3 my-2 position-relative">
 
+						<div class="position-absolute top-0 end-0 m-4"> <a asp-action="RimuoviItemDalCarrello" asp-controller="Carrello" asp-route-id="@item.Prodotto.IdProdotto" style="text-decoration:none;">❌</a>  </div>
+
+						<div>
+							<p class="fw-bold fs-4">@item.Prodotto.NomeProdotto.ToUpper()</p>
+							<p>Quantità selezionata: @item.Quantita</p>
+							<p> Prezzo: @item.Prodotto.PrezzoProdotto</p>
+							<p> TempoConsegna: @item.Prodotto.TempoConsegna minuti </p>
+							<p> Ingredienti: @item.Prodotto.Ingredienti</p>
+						</div>
+						
+						<div>
+							<img class="card-img" style="object-fit:cover;" src="@item.Prodotto.FotoProdotto" />
+						</div>
 					</div>
 
 
@@ -45,12 +51,12 @@
 			@{
 				if (Model.Count == 0)
 				{
-					<div class="display-2"> Il carrello è vuoto Zio, e spendili du sordi... </div>
+					<div class="display-2 text-light"> Il tuo carrello è vuoto. </div>
 
 				}
 				else
 				{
-					<a asp-controller="Ordine" asp-action="Create" class="btn btn-outline-dark"> Procedi all'ordine </a>
+					<a asp-controller="Ordine" asp-action="Create" class="btn btn-outline-light my-4"> Procedi all'ordine </a>
 
 				}
 			}
