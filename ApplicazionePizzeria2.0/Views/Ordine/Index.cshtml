@@ -65,17 +65,22 @@
 
 
 
-			<div class="col-12">
-				<div class="mb-3">
-					<button id="btnTotaleIncassatoInData">Totale Incassato In Data: </button>
-					<input id="idinputDate" type="date" />
+			<div class="col-3">
+
+				<div class="gap-2">
+					<input id="idinputDate" type="date" class="form-control"/>
+					<button class="btn btn-primary mb-3" id="btnTotaleIncassatoInData">Totale Incassato In Data: </button>
 				</div>
-				<button id="btnOrdiniEvasi">Totale Ordini Evasi</button>
+				
+				
+				<div class="col-12">
+					<p id="outputElement"></p>
+				</div>
+
+				<button class="btn btn-primary" id="btnOrdiniEvasi">Totale Ordini Evasi</button>
 			</div>
 
-			<div class="col-12">
-				<p id="outputElement"></p>
-			</div>
+			
         </div>
     </div>
 </div>
@@ -85,39 +90,6 @@
 
 
 @section Scripts {
-    <script>
-
-        const BtnOrdiniTot = document.getElementById("btnOrdiniEvasi");
-        const btnTotaleIncassatoInData = document.getElementById("btnTotaleIncassatoInData");
-
-        const MyFetch = () => {
-            fetch("/Ordine/FetchTotOrdniEvasi")
-                .then(response => response.json())
-                .then(data => {
-                    pOutput = document.getElementById("outputElement");
-                    pOutput.innerHTML = `Totale ordini evasi: ${data}`;
-                })
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-
-            BtnOrdiniTot.addEventListener("click", () => {
-                MyFetch();
-            })
-
-            btnTotaleIncassatoInData.addEventListener("click", () => {
-
-                const inputDate = document.getElementById("idinputDate").value;
-
-                fetch(`/Ordine/FetchTotIncassatoInData?data=${inputDate}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        pOutput = document.getElementById("outputElement");
-                        pOutput.innerHTML = `Totale incassato in data: ${data}`;
-                    })
-            })
-
-
-        })
+    <script src="./js/IncassoTotaleInDataSpecifica.js">
     </script>
 }
