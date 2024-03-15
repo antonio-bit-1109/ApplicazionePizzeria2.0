@@ -6,14 +6,25 @@
 
 }
 
-<h1> Riepilogo carrello</h1>
+
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h1> Riepilogo carrello</h1>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
 
 	<div class="row">
+
 		<div class="d-flex">
 			<div class="col-6">
 				@foreach (var item in Model)
 				{
-					<div class="border border-1 p-2 position-relative m-3">
+					<div class="myCustomBorder p-2 position-relative m-3 bg-light">
 						<div class="position-absolute top-0 end-0 m-4"> <a asp-action="RimuoviItemDalCarrello" asp-controller="Carrello" asp-route-id="@item.Prodotto.IdProdotto" style="text-decoration:none;">❌</a>  </div>
 						<img style="width:100px; height:100px; object-fit:cover;" src="@item.Prodotto.FotoProdotto" />
 						<p class="fw-bold fs-4">@item.Prodotto.NomeProdotto</p>
@@ -46,6 +57,8 @@
 
 		</div>
 	</div>
+</div>
+	
 
 
 

@@ -4,7 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Elenco delle Pizze </h1>
 
 
 @{
@@ -23,39 +22,42 @@
 	<div class="row justify-content-center">
 
 
-		@foreach (var item in Model)
-		{
-			<div class="col-4">
-				<div class="card h-100">
-					<img style="max-height:220px; object-fit:cover" src="@item.FotoProdotto" alt="@item.NomeProdotto">
-					<div class="card-body">
-						<h5 class="card-title">@item.NomeProdotto</h5>
-						<p class="display-6">@item.PrezzoProdotto Euro</p>
-						<p class="card-text">@item.Ingredienti </p>
-						<p class="card-text">Tempo Stimato consegna: @item.TempoConsegna minuti </p>
-						<div class="d-flex flex-column">
+		
+			<h1>Elenco delle Pizze </h1>
+
+			@foreach (var item in Model)
+			{
+				<div class="col-4">
+					<div class="card m-1 rounded">
+						<img style="max-height:220px; object-fit:cover" src="@item.FotoProdotto" alt="@item.NomeProdotto">
+						<div class="card-body">
+							<h5 class="card-title">@item.NomeProdotto</h5>
+							<p class="display-6">@item.PrezzoProdotto Euro</p>
+							<p class="card-text">@item.Ingredienti </p>
+							<p class="card-text">Tempo Stimato consegna: @item.TempoConsegna minuti </p>
+							<div class="d-flex flex-column">
 
 
-							@{
-								if (User.IsInRole("admin"))
-								{
-									<a asp-action="Details" asp-controller="Prodotto" asp-route-id="@item.IdProdotto"> Dettagli</a>
-									<a asp-action="Edit" asp-controller="Prodotto" asp-route-id="@item.IdProdotto"> Modifica</a>
-									<a asp-action="Delete" asp-controller="Prodotto" asp-route-id="@item.IdProdotto"> Cancella</a>
+								@{
+									if (User.IsInRole("admin"))
+									{
+										<a asp-action="Details" asp-controller="Prodotto" asp-route-id="@item.IdProdotto"> Dettagli</a>
+										<a asp-action="Edit" asp-controller="Prodotto" asp-route-id="@item.IdProdotto"> Modifica</a>
+										<a asp-action="Delete" asp-controller="Prodotto" asp-route-id="@item.IdProdotto"> Cancella</a>
+									}
+									else
+									{
+										<a asp-action="AggiungiAlCarrello" asp-controller="Carrello" asp-route-id="@item.IdProdotto" class="btn btn-primary"> Aggiungi Prodotto al carrello  </a>
+									}
 								}
-								else
-								{
-									<a asp-action="AggiungiAlCarrello" asp-controller="Carrello" asp-route-id="@item.IdProdotto" class="btn btn-primary"> Aggiungi Prodotto al carrello  </a>
-								}
-							}
-						
+
+							</div>
+
 						</div>
-
 					</div>
 				</div>
-			</div>
 
-		}
-
+			}
+		
 	</div>
 </div>

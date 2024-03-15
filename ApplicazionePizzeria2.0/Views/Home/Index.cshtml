@@ -1,18 +1,19 @@
 ﻿@model ApplicazionePizzeria2._0.Models.Utente
 
 
-<div class="row align-items-start justify-content-center imgHome">
+<div class="vh-100">
+	<div class="row align-items-start justify-content-center imgHome">
 
-	@{
-		string actionChiamata = TempData["MiStoRegistrando"] != null && (bool)TempData["MiStoRegistrando"] == true ? "Registrazione" : "Login";
-	}
+		@{
+			string actionChiamata = TempData["MiStoRegistrando"] != null && (bool)TempData["MiStoRegistrando"] == true ? "Registrazione" : "Login";
+		}
 
-	<div class="d-flex justify-content-center align-items-center">
+		<div class="d-flex justify-content-center align-items-center">
 			<img class="imgPosition" src="../imgs/pizzaa.png" />
-	</div>
-	
+		</div>
 
-	
+
+
 		<div class="col-3">
 
 			<div class="my-5">
@@ -46,7 +47,9 @@
 			</div>
 
 		</div>
-	
-	
 
+
+
+	</div>
 </div>
+

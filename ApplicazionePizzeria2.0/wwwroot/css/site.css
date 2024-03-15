@@ -12,13 +12,10 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
 
 body {
   margin-bottom: 60px;
+  position:relative;
 }
 
 .imgHome {
@@ -40,4 +37,10 @@ body {
 .imgPosition2 {
     width: 60px;
     height: 60px;
+}
+
+.myCustomBorder {
+    border: solid;
+    border-width: 3px; /* Imposta lo spessore del bordo */
+    border-color: #8B4513;
 }
