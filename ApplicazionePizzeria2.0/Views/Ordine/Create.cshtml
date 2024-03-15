@@ -5,44 +5,53 @@
   
 }
 
-<h1>Creazione Ordine </h1>
 
-<h4>Ordine</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="indirizzoSpedizione" class="control-label"></label>
-                <input asp-for="indirizzoSpedizione" class="form-control" />
-                <span asp-validation-for="indirizzoSpedizione" class="text-danger"></span>
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <h1>Creazione Ordine </h1>
+
+            <h4>Ordine</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group my-2">
+                            <label asp-for="indirizzoSpedizione" class="control-label text-light fw-bold"></label>
+                            <input asp-for="indirizzoSpedizione" class="form-control" />
+                            <span asp-validation-for="indirizzoSpedizione" class="text-danger"></span>
+                        </div>
+                        <div class="form-group my-2">
+                            <label asp-for="IdUtente" class="control-labe text-light fw-bold"></label>
+                            <input readonly asp-for="IdUtente" class="form-control" value="@ViewBag.IdUtente" />
+                            <span asp-validation-for="IdUtente" class="text-danger"></span>
+                        </div>
+                        <div class="form-group my-2">
+                            <label asp-for="NoteAggiuntive" class="control-label text-light fw-bold"></label>
+                            <input asp-for="NoteAggiuntive" class="form-control" />
+                            <span asp-validation-for="NoteAggiuntive" class="text-danger"></span>
+                        </div>
+                        <div class="form-group my-2">
+                            <label asp-for="DataDellaConsegna" class="control-label text-light fw-bold"></label>
+                            <input asp-for="DataDellaConsegna" class="form-control" value="@DateTime.Now" />
+                            <span asp-validation-for="DataDellaConsegna" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="IdUtente" class="control-label"></label>
-                <input readonly asp-for="IdUtente" class="form-control" value="@ViewBag.IdUtente" />
-                <span asp-validation-for="IdUtente" class="text-danger"></span>
-             </div>
-            <div class="form-group">
-                <label asp-for="NoteAggiuntive" class="control-label"></label>
-                <input asp-for="NoteAggiuntive" class="form-control" />
-                <span asp-validation-for="NoteAggiuntive" class="text-danger"></span>
+
+            <div>
+                <a asp-controller="Login" asp-action="Index">Back to List</a>
             </div>
-            <div class="form-group">
-                <label asp-for="DataDellaConsegna" class="control-label"></label>
-                <input asp-for="DataDellaConsegna" class="form-control" value="@DateTime.Now"/>
-                <span asp-validation-for="DataDellaConsegna" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

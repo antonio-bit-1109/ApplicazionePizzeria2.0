@@ -7,63 +7,66 @@
 		</div>
 
 
+		<div class="row">
+			@if (User.IsInRole("admin"))
+			{
 
-		@if (User.IsInRole("admin"))
-		{
+				<div class="col-4">
+					<div class="card">
 
-			<div class="col-5">
-				<div class="card">
-
-					<div class="card-body">
-						<h5 class="fs-2"> Registra Nuovo Prodotto</h5>
-						<p class="card-text">CRUD dei prodotti </p>
-						<a asp-controller="Prodotto" asp-action="Index" class="btn btn-primary"> Aggiungi Nuovo Prodotto  </a>
+						<div class="card-body">
+							<h5 class="fs-2"> Registra Nuovo Prodotto</h5>
+							<p class="card-text">CRUD dei prodotti </p>
+							<a asp-controller="Prodotto" asp-action="Index" class="btn btn-primary"> Aggiungi Nuovo Prodotto  </a>
+						</div>
 					</div>
 				</div>
-			</div>
 
 
-			<div class="col-5">
-				<div class="card">
-					@* 				<img src="~/imgs/prenotazione.jpg" />
-				*@				<div class="card-body">
-						<h5 class="fs-2">Elenco Ordini</h5>
-						<p class="card-text">Tutti gli ordini Effettuati.</p>
-						@* <a asp-controller="Cliente" asp-action="Index" class="btn btn-primary"> Vai all' elenco clienti</a> *@
-						<a asp-controller="Ordine" asp-action="Index" class="btn btn-primary"> Vai agli Ordini </a>
+				<div class="col-4">
+					<div class="card">
+						@* 				<img src="~/imgs/prenotazione.jpg" />
+					*@				<div class="card-body">
+							<h5 class="fs-2">Elenco Ordini</h5>
+							<p class="card-text">Tutti gli ordini Effettuati.</p>
+							@* <a asp-controller="Cliente" asp-action="Index" class="btn btn-primary"> Vai all' elenco clienti</a> *@
+							<a asp-controller="Ordine" asp-action="Index" class="btn btn-primary"> Vai agli Ordini </a>
+						</div>
 					</div>
 				</div>
-			</div>
 
 
-			<div class="col-5">
-				<div class="card">
-					@* 				<img src="~/imgs/servizio.jpg" />
-				*@				<div class="card-body">
-						<h5 class="fs-2">Elenco Dettagli Ordine </h5>
-						<p class="card-text">Tutti i dettagli degli ordini</p>
-						<a asp-controller="DettagliOrdine" asp-action="Index" class="btn btn-primary"> Elenco Dettagli Ordini</a>
+				<div class="col-4">
+					<div class="card">
+						@* 				<img src="~/imgs/servizio.jpg" />
+					*@				<div class="card-body">
+							<h5 class="fs-2">Elenco Dettagli Ordine </h5>
+							<p class="card-text">Tutti i dettagli degli ordini</p>
+							<a asp-controller="DettagliOrdine" asp-action="Index" class="btn btn-primary"> Elenco Dettagli Ordini</a>
 
+						</div>
 					</div>
 				</div>
-			</div>
 
 
-		}
-		else
-		{
+			}
+			else
+			{
 
-			<div class="d-flex justify-content-center align-items-center flex-column">
+				<div class="d-flex justify-content-center align-items-center flex-column">
 
-				<div class="border-bottom border-top w-25 pb-3 d-flex flex-column gap-2 animationCustom">
-					<h5 class="display-2 m-auto"> Ordina </h5>
-					<p class="card-text m-auto">Ordina una pizza </p>
-					<a asp-controller="Prodotto" asp-action="Index" class="btn btn-primary"> vedi prodotti  </a>
+					<div class="border-bottom border-top w-25 pb-3 d-flex flex-column gap-2 animationCustom">
+						<h5 class="display-2 m-auto"> Ordina </h5>
+						<p class="card-text m-auto">Ordina una pizza </p>
+						<a asp-controller="Prodotto" asp-action="Index" class="btn btn-primary"> vedi prodotti  </a>
+					</div>
 				</div>
-			</div>
 
 
-		}
+			}
+		</div>
+
+		
 
 
 	</div>
