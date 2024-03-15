@@ -6,20 +6,20 @@
 
 
 
-@{
-	if (User.IsInRole("admin"))
-	{
-		<p>
-			<a asp-action="Create">Create New</a>
-		</p>
-	}
-
-}
-
-
 
 <div class="container">
 	<div class="row justify-content-center">
+
+
+		@{
+			if (User.IsInRole("admin"))
+			{
+				<p>
+					<a asp-action="Create">Create New</a>
+				</p>
+			}
+
+		}
 
 
 			<h1 class="text-light"> Lista Dei prodotti  </h1>

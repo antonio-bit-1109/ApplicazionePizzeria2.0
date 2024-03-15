@@ -88,6 +88,7 @@ namespace ApplicazionePizzeria2._0.Controllers
 
 			MiStoRegistrando = true;
 			TempData["MiStoRegistrando"] = MiStoRegistrando;
+			TempData["infoRegistrazione"] = "Inserisci qui sotto i tuoi dati di registrazione.";
 			return RedirectToAction("Index", "Home");
 		}
 
