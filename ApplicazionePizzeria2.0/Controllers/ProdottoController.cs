@@ -49,9 +49,10 @@ namespace ApplicazionePizzeria2._0.Controllers
 		// POST: Prodottoes/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("NomeProdotto,FotoProdotto,PrezzoProdotto,TempoConsegna,Ingredienti")] Prodotto prodotto)
+		public async Task<IActionResult> Create([Bind("NomeProdotto,FotoProdotto,PrezzoProdotto,TempoConsegna,Ingredienti")] Prodotto prodotto /*, IFormFile fotoProdotto*/)
 		{
 			ModelState.Remove("DettagliOrdini");
+			//ModelState.Remove("FotoProdotto");
 
 			if (ModelState.IsValid)
 			{
