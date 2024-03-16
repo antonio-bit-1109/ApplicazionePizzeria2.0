@@ -2,7 +2,7 @@
 
 
 <div class="vh-100">
-	<div class="row align-items-start justify-content-center imgHome">
+	<div class="row align-items-center justify-content-center imgHome">
 
 		@{
 			string actionChiamata = TempData["MiStoRegistrando"] != null && (bool)TempData["MiStoRegistrando"] == true ? "Registrazione" : "Login";
@@ -12,6 +12,19 @@
 			<img class="imgPosition" src="../imgs/pizzaa.png" />
 		</div>
 
+		@{
+			if (TempData["MiStoRegistrando"] != null && (bool)TempData["MiStoRegistrando"] == true)
+			{
+					<div class="col-4 heartbeat">
+						<div class="d-flex flex-column text-light fs-1 align-items-end me-2">
+							<i class="bi bi-arrow-down-right"></i>
+							<i class="bi bi-arrow-right"></i>
+							<i class="bi bi-arrow-up-right"></i>
+						</div>
+
+					</div>
+			}
+		}
 
 
 		<div class="col-3">
@@ -20,23 +33,24 @@
 				<form asp-action="@actionChiamata" asp-controller="Login" asp-method="post">
 					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-					<div class="text-light">
+					<div id="DivDaSparire" class="text-light heartbeat">
 						@{
 							if (TempData["infoRegistrazione"] != null)
 							{
-								<p id="PDaSparire" class="fs-5">@TempData["infoRegistrazione"]</p>
+								// questo tempdata contiene una stringa che dice "inserisci qui sotto i tuoi dati di registrazione"
+									<p id="mYPar" class="fs-5">@TempData["infoRegistrazione"]</p>
 							}
 						}
 					</div>
 
 
 					<div class="form-group">
-						<label asp-for="Nome" class="control-label"></label>
+						<label asp-for="Nome" class="control-label text-light"></label>
 						<input asp-for="Nome" class="form-control" />
 						<span asp-validation-for="Nome" class="text-danger"></span>
 					</div>
 					<div class="form-group mb-3">
-						<label asp-for="Password" class="control-label"></label>
+						<label asp-for="Password" class="control-label text-light"></label>
 						<input type="password" asp-for="Password" class="form-control" />
 						<span asp-validation-for="Password" class="text-danger"></span>
 					</div>
@@ -45,11 +59,11 @@
 						@{
 							if (TempData["MiStoRegistrando"] != null && (bool)TempData["MiStoRegistrando"] == true)
 							{
-								<input type="submit" value="registrati" class="btn btn-primary" />
+									<input type="submit" value="registrati" class="btn btn-primary" />
 							}
 							else
 							{
-								<input type="submit" value="Login" class="btn btn-primary" />
+									<input type="submit" value="Login" class="btn btn-primary" />
 							}
 						}
 
@@ -59,6 +73,22 @@
 
 		</div>
 
+		@{
+			if (TempData["MiStoRegistrando"] != null && (bool)TempData["MiStoRegistrando"] == true)
+			{
+					<div class="col-4 heartbeat">
+						<div class="d-flex flex-column text-light fs-1 align-items-start me-2">
+							<i class="bi bi-arrow-down-left"></i>
+							<i class="bi bi-arrow-left"></i>
+							<i class="bi bi-arrow-up-left"></i>
+						</div>
+
+					</div>
+			}
+		}
+
+
+		@* div che conterrano le frecce animate *@
 
 
 	</div>
@@ -67,16 +97,6 @@
 
 @section Scripts {
 
-	<script>
-
-		document.addeventlistener("DOMContentLoaded",  () => {
-			var PDaSparire = document.getElementById("PDaSparire");
-			if (PDaSparire.innerHTML !== null {
-				setTimeout(function () {
-					PDaSparire.style.display = "none";
-				}, 3000);
-			}
-		});
-			}
+	<script src="./js/DivDaSparire.js">
 	</script>
 }
