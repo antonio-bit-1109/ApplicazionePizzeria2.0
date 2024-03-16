@@ -117,3 +117,9 @@ body {
         animation-timing-function: ease-out;
     }
 }
+
+
+.sfondoRiepilogoOrdine {
+    background-color: darkorange;
+    border: solid 2px;
+}

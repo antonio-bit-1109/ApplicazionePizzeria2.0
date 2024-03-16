@@ -17,6 +17,10 @@ namespace ApplicazionePizzeria2._0.Controllers
 			_context = context;
 		}
 		// GET: CarrelloController
+
+		// per la costruzione del carrello è stato necessario utilizzare una session. Prima di tutto inserire il service builder.Services.AddSession(); nel file Program.cs ed in seguito inserire app.UseSession(); nel file Program.cs
+		// dopo di che ho creato un nuovo model carrello che avesse due proprietà: Prodotto e Quantità. In seguito ho creato un metodo per aggiungere un prodotto al carrello e un metodo per rimuovere un prodotto dal carrello.
+		// la principale peculiarità del carrello è che , in quanto scritto con core, questo può contenere solo stringhe. Per questo motivo ho utilizzato la libreria Newtonsoft.Json per serializzare e deserializzare il carrello attraverso il metodo serialize e deserialize object.
 		public ActionResult Index()
 		{
 			// Prendo il carrello dalla sessione
@@ -36,7 +40,12 @@ namespace ApplicazionePizzeria2._0.Controllers
 			return View(new List<Carrello>());
 		}
 
+		// per aggiungere un prodotto al carrello questo metodo prende in input id e trova il relaltivo prodotto nel db. 
+		// se questo oggetto esiste nel DB , viene ripreso il carrello dalla session, deserializzato, viene fatto un ciclo nel carrello per trovare il prodotto con lo stesso id inserito come input nel metodo,
+		// ed aumentata la quantità del prodotto trovato di +1.
+		//INfine il carrello viene di nuovo serializzato e salvato in sessione.
 
+		// se il prodotto trovato grazie al parametro invece non esiste nel carrello, viene creato un nuovo oggetto carrello e inserito nel carrello presente in sessione.
 		public IActionResult AggiungiAlCarrello(int? id)
 		{
 			bool prodottoGiaPresenteNelCarrello = false;
@@ -157,6 +166,9 @@ namespace ApplicazionePizzeria2._0.Controllers
 		//	return Ok();
 		//}
 
+
+		// il metodo rimuovi dal carrello prende in input un id, viene ripreso il carrello dalla sessione,
+		// il carrello viene deserializzato da stringa a lista e viene rimosso il prodotto con id uguale all'id inserito come parametro nel metodo.
 		public IActionResult RimuoviItemDalCarrello(int id)
 		{
 			var carrelloSession = HttpContext.Session.GetString("carrello");
@@ -174,13 +186,6 @@ namespace ApplicazionePizzeria2._0.Controllers
 			TempData["error"] = "Articolo non trovato";
 			return RedirectToAction("Index", "Carrello");
 		}
-
-
-
-
-
-
-
 
 	}
 }

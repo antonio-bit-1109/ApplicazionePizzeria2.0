@@ -5,6 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     divAnimazione.forEach(divAnimato => {
         setTimeout(() => {
             divAnimato.style.display = "none";
-        }, 3000)
+        }, 4500)
     })
 });

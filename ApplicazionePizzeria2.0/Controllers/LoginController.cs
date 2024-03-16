@@ -24,6 +24,9 @@ namespace ApplicazionePizzeria2._0.Controllers
 			return View();
 		}
 
+
+		//questo metodo serve per vedere se il nome inserito dall'utente è gia presente nel DB, se lo user è nullo l utente non esiste.
+		//Se invece esiste nel DB vengono presi il nome l'id ed il ruolo salvati nel db e inseriti come claim nel cookie di autenticazione 
 		[HttpPost]
 		public async Task<IActionResult> Login(Utente utente)
 		{
@@ -72,6 +75,7 @@ namespace ApplicazionePizzeria2._0.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 
+		// questo metodo serve per fare il logout, cancella il cookie di autenticazione e reindirizza alla home
 		public async Task<IActionResult> Logout()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -80,7 +84,9 @@ namespace ApplicazionePizzeria2._0.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 
-
+		// questo metodo viene attivato quando l'utente clicca sul link "Registrati" nella pagina di login
+		// sono presenti alcuni tempdata che vengono salvati e al reindirizzamento in home
+		// vengono visualizzato come messaggi utili per l'utente a capire dove inserire i dati per registrarsi
 		public IActionResult Registrazione()
 		{
 			bool MiStoRegistrando;
@@ -92,7 +98,9 @@ namespace ApplicazionePizzeria2._0.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 
-		[HttpPost]
+
+		// questo metodo serve per registrare un nuovo utente, una volta riempiti i campi ed effettuata la post viene controllato nel db se già esiste un utente con quel nome .
+		// se non esiste viene fatta una insert nel db con il nuovo utente altrimenti messaggio errore, "Nome utente gia in uso. Scegline uno diverso";
 		[HttpPost]
 		public IActionResult Registrazione([Bind("Nome,Password")] Utente utente)
 		{
