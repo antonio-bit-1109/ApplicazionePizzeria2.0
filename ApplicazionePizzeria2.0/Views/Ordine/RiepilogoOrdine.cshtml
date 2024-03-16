@@ -50,6 +50,8 @@
 										<h5>@(frescoBuffo.Prezzo != 0 ? $"Prezzo Unitario: {frescoBuffo.Prezzo} Euro" : "non disponibile")</h5>
 										<p>@(frescoBuffo.Quantita != 0 ? $" Quantità acquistata: {frescoBuffo.Quantita}" : "non disponibile")</p>
 										<p class="CostoRelativo">@(frescoBuffo.CostoTotale != null ? $" Prezzo relativo: {frescoBuffo.CostoTotale} euro" : "non disponibile")</p>
+										<p>@(frescoBuffo.Prodotto.Ingredienti != null ? $" Ingredienti: {frescoBuffo.Prodotto.Ingredienti}" : "non disponibile")</p>
+
 
 									</div>
 									<div class="col-4">
