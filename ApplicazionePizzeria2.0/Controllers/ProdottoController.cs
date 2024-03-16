@@ -59,7 +59,7 @@ namespace ApplicazionePizzeria2._0.Controllers
 				if (fotoProdotto != null && fotoProdotto.Length > 0)
 				{
 					var fileName = Path.GetFileName(fotoProdotto.FileName);
-					//var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
 					var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imgs", fileName);
 
 					using (var fileStream = new FileStream(filePath, FileMode.Create))
