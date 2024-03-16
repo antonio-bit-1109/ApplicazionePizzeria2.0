@@ -56,10 +56,18 @@ namespace ApplicazionePizzeria2._0.Controllers
 			return View();
 		}
 
+
+
 		// POST: Ordine/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[Authorize]
+
+		// in questo metodo viene creato l'ordine e successivamente il relativo dettaglio ordine. 
+		// una volta che l'ordine è crato mi salvo da parte il suo id.
+		// richiamo il carrello dalla sessione contenente i prdotti salvati 
+		//per ogni prodotto inserito nel carrello creo il relativo dettaglio ordine che sarà correlato sempre allo stesso ordine
+		//(tutti i dettagli ordini avranno lo stesso idordine) e avrà come idprodotto, nome, foto ecc lo stesso valore del prodotto inserito nel carrello e come quantità la quantità inserita nel carrello.
 		public async Task<IActionResult> Create([Bind("indirizzoSpedizione,IdUtente,NoteAggiuntive, DataDellaConsegna")] Ordine ordine)
 		{
 			ModelState.Remove("Utente");
@@ -114,7 +122,6 @@ namespace ApplicazionePizzeria2._0.Controllers
 						// svuoto il carrello
 						HttpContext.Session.Remove("carrello");
 					}
-
 
 				}
 
@@ -230,6 +237,13 @@ namespace ApplicazionePizzeria2._0.Controllers
 		}
 
 
+		// questo metodo restituisce il riepilogo degli ordini effettuati da un cliente.
+		// se l'utente è autenticato recupero il suo idutente.
+		// recupero tutti gli ordini effettuati da quell'utente in una lista.
+		// per ogni ordine del cliente recupero lidordine e i dettagli ordine associati a quell'ordine.
+		// per ogni dettaglio ordine recupero il'id del prodotto associato e il nome del prodotto associato.
+		// creoun nuovo oggetto riepilogo ordine che ha come proprietà l'ordine e una lista di tutti i dettagli ordini associati a quell'ordine.
+		// passo la lista alla view e ciclo la lista stessa per ricavare tutti i dettagli di ogni singolo ordine.
 		[Authorize]
 		public IActionResult RiepilogoOrdine()
 		{
@@ -271,7 +285,7 @@ namespace ApplicazionePizzeria2._0.Controllers
 
 		}
 
-
+		// metodo che restituisce il totale incassato in una data specifica.
 		public IActionResult FetchTotIncassatoInData(DateTime data)
 		{
 			var totale = _context.DettagliOrdini
@@ -282,14 +296,8 @@ namespace ApplicazionePizzeria2._0.Controllers
 			return Json(totale);
 		}
 
-		//public IActionResult FetchTotOrdniEvasi()
-		//{
 
-		//	return Json(true);
-		//}
-
-
-
+		// metodo che restituisce il costo totale di un ordine specifico.
 		public IActionResult TotCostoOrdine(string idOrdine)
 		{
 			var totalissimo = _context.DettagliOrdini.Where(d => d.IdOrdine == Convert.ToInt32(idOrdine)).Sum(d => d.CostoTotale);
