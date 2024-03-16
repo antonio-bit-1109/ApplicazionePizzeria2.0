@@ -49,13 +49,28 @@ namespace ApplicazionePizzeria2._0.Controllers
 		// POST: Prodottoes/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("NomeProdotto,FotoProdotto,PrezzoProdotto,TempoConsegna,Ingredienti")] Prodotto prodotto /*, IFormFile fotoProdotto*/)
+		public async Task<IActionResult> Create([Bind("NomeProdotto,FotoProdotto,PrezzoProdotto,TempoConsegna,Ingredienti")] Prodotto prodotto, IFormFile fotoProdotto)
 		{
 			ModelState.Remove("DettagliOrdini");
-			//ModelState.Remove("FotoProdotto");
+			ModelState.Remove("FotoProdotto");
 
 			if (ModelState.IsValid)
 			{
+				if (fotoProdotto != null && fotoProdotto.Length > 0)
+				{
+					var fileName = Path.GetFileName(fotoProdotto.FileName);
+					//var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+					var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imgs", fileName);
+
+					using (var fileStream = new FileStream(filePath, FileMode.Create))
+					{
+						await fotoProdotto.CopyToAsync(fileStream);
+					}
+
+					prodotto.FotoProdotto = fileName;
+				}
+
+
 				_context.Add(prodotto);
 				await _context.SaveChangesAsync();
 				return RedirectToAction(nameof(Index));
