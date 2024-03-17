@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Stripe.Checkout;
 using System.Security.Claims;
 
 namespace ApplicazionePizzeria2._0.Controllers
@@ -119,23 +120,81 @@ namespace ApplicazionePizzeria2._0.Controllers
 						_context.Add(dettagliOrdine);
 						await _context.SaveChangesAsync();
 
+
 						// svuoto il carrello
-						HttpContext.Session.Remove("carrello");
+						//HttpContext.Session.Remove("carrello");
+
+
+
 					}
 
 				}
 
-
-				TempData["Message"] = "Ordine creato con successo!";
-				return RedirectToAction("Index", "Login");
+				//TempData["Message"] = "Ordine creato con successo!";
+				//return RedirectToAction("Index", "Login");
 
 			}
 			ViewData["IdUtente"] = new SelectList(_context.Utenti, "IdUtente", "Nome", ordine.IdUtente);
 
+			// sessione di pagamento con Stripe 
+			var altroNomeCarrello = HttpContext.Session.GetString("carrello");
+
+			if (altroNomeCarrello != null)
+			{
+				List<Carrello> cart = JsonConvert.DeserializeObject<List<Carrello>>(altroNomeCarrello);
+
+				var domain = "https://localhost:7111/";
+
+				var Options = new SessionCreateOptions
+				{
+					SuccessUrl = domain + "Login/Index",
+					CancelUrl = domain + "Login/Index",
+					LineItems = new List<SessionLineItemOptions>(),
+					Mode = "payment",
+					CustomerEmail = "EmailProva@gmail.it"
+				};
+
+				foreach (var item in cart)
+				{
+					var sessionLineItem = new SessionLineItemOptions
+					{
+						PriceData = new SessionLineItemPriceDataOptions
+						{
+							UnitAmount = (long)item.Prodotto.PrezzoProdotto * 100,
+							Currency = "eur",
+							ProductData = new SessionLineItemPriceDataProductDataOptions
+							{
+								Name = item.Prodotto.NomeProdotto,
+								Description = item.Prodotto.Ingredienti,
+								Images = new List<string> { domain + "/imgs/" + item.Prodotto.FotoProdotto }
+							}
+						},
+						Quantity = item.Quantita
+					};
+
+					Options.LineItems.Add(sessionLineItem);
+				}
+				// creo la sessione di Stripe e la invio al client
+				var service = new SessionService();
+				Session session = service.Create(Options);
+				Response.Headers.Add("Location", session.Url);
+			}
+
+			// svuoto il carrello
+			HttpContext.Session.Remove("carrello");
+
+			// reindirizzo alla pagina di successo
+			return new StatusCodeResult(303);
 			//return View(ordine);
 
-			return RedirectToAction(nameof(Index));
+			//return RedirectToAction(nameof(Index));
 		}
+
+
+		//public IActionResult ProcediAlPagamento()
+		//{
+
+		//}
 
 		// GET: Ordine/Edit/5
 		[Authorize(Roles = "admin")]
